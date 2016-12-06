@@ -15,30 +15,28 @@ namespace MusicAPI.Core
         /// </summary>
         public class Search : RequestData
         {
-            public override string Url
+
+             public override string Url 
+             { 
+                 get
+                 {
+                     return "http://music.163.com/api/search/get";
+                 }
+             }
+
+            public override string Method 
             {
                 get
                 {
-                    return Url;
+                    return "POST";
                 }
-                set
-                {
-                    Url = "http://music.163.com/api/search/get";
-                }
-            }
 
-
-            public override string Method
-            {
-                get
-                {
-                    return Method;
-                }
-                set
-                {
-                    Method = "POST";
-                }
+               set
+               {
+                  Method = value;
+                } 
             }
+             
         }
 
         /// <summary>
@@ -53,23 +51,8 @@ namespace MusicAPI.Core
                 {
                     return "http://music.163.com/api/song/detail";
                 }
-                set
-                {
-                    Url = "http://music.163.com/api/song/detail";
-                }
             }
 
-            public override string Method
-            {
-                get
-                {
-                    return "GET";
-                }
-                set
-                {
-                    Method = "GET";
-                }
-            }
         }
     }
 }

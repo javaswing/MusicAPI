@@ -11,21 +11,31 @@ namespace MusicAPI.Core
     public abstract class RequestData
     {
         /// <summary>
-        /// 接口地址
+        /// 请求的URL
         /// </summary>
-        public virtual string Url { get; set; }
+        public abstract string Url { get; }
 
         /// <summary>
-        /// 请示方式
+        /// 请求方法
         /// </summary>
-        public virtual string Method { get; set; }
+        public virtual string Method
+        {
+            get
+            {
+                return "GET";
+            }
+
+            set
+            {
+                 Method = value;
+            }
+        }
+
 
 
         /// <summary>
-        /// 请求参数[匿名对象]
+        /// 匿名参数
         /// </summary>
-        public virtual object FormData { get; set; }
-
-
+        public object FormData { get; set; }
     }
 }
