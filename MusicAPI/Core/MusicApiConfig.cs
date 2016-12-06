@@ -54,5 +54,47 @@ namespace MusicAPI.Core
             }
 
         }
+
+        /// <summary>
+        /// 获取歌词接口
+        /// </summary>
+        public class Lyric : RequestData
+        {
+            public override string Url
+            {
+                get
+                {
+                    return "http://music.163.com/api/song/lyric";
+                }
+            }
+        }
+
+        /// <summary>
+        /// 专辑歌单
+        /// </summary>
+        public class PlayList : RequestData
+        {
+            public override string Url
+            {
+                get
+                {
+                    return "http://music.163.com/api/playlist/detail";
+                }
+            }
+        }
+
+        /// <summary>
+        /// MV接口
+        /// </summary>
+        public class Mv: RequestData
+        {
+            public override string Url
+            {
+                get
+                {
+                    return "http://music.163.com/api/mv/detail";
+                }
+            }
+        }
     }
 }

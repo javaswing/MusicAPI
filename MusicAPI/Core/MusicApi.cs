@@ -35,6 +35,38 @@ namespace MusicAPI.Core
         }
 
         /// <summary>
+        /// 获取歌曲歌词API
+        /// 根据JSON判断是否有歌词，nolyric表示无歌词，uncollected表示暂时无人提交歌词
+        /// </summary>
+        /// <param name="id">要获取的歌曲id</param>
+        /// <returns>JSON</returns>
+        public static string Lyric(string id)
+        {
+            return Request(new MusicApiConfig.Lyric { FormData = new { os = "pc", id = id, lv = -1, kv = -1, tv = -1 } });
+        }
+
+        /// <summary>
+        /// 获取用户歌单信息
+        /// 排行榜也归类为歌单
+        /// </summary>
+        /// <param name="id">要获取的歌单id</param>
+        /// <returns>JSON</returns>
+        public static string PlayList(string id)
+        {
+            return Request(new MusicApiConfig.PlayList { FormData = new { id = id } });
+        }
+
+        /// <summary>
+        /// 歌曲MV API
+        /// </summary>
+        /// <param name="id">要获取的mvid</param>
+        /// <returns>JSON</returns>
+        public static string MV(string id)
+        {
+            return Request(new MusicApiConfig.Mv { FormData = new { id = id, type = "mp4" } });
+        }
+
+        /// <summary>
         /// 请求网易云音乐接口
         /// </summary>
         /// <typeparam name="T">要请求的接口类型</typeparam>

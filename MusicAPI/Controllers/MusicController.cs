@@ -35,6 +35,39 @@ namespace MusicAPI.Controllers
         {
             return Json(MusicApi.Detail(ids));
         }
+
+        // GET: /api/music/lyric?id={0}
+        // Sample: http://y.dskui.com/api/music/lyric?id=29775505
+
+        [Route("lyric")]
+        [HttpGet()]
+        [CacheOutput(ClientTimeSpan = int.MaxValue, ServerTimeSpan = int.MaxValue)]
+        public HttpResponseMessage Lyric(string id)
+        {
+            return Json(MusicApi.Lyric(id));
+        }
+
+        // GET: /api/music/playlist?id={0}
+        // Sample: http://y.dskui.com/api/music/playlist?id=374755836
+
+        [Route("playlist")]
+        [HttpGet()]
+        [CacheOutput(ClientTimeSpan = int.MaxValue, ServerTimeSpan = int.MaxValue)]
+        public HttpResponseMessage PlayList(string id = null)
+        {
+            return Json(MusicApi.PlayList(id));
+        }
+
+        // GET: /api/music/mv?id={0}
+        // Sample: http://y.dskui.com/api/music/mv?id=333042
+
+        [Route("mv")]
+        [HttpGet()]
+        [CacheOutput(ClientTimeSpan = int.MaxValue, ServerTimeSpan = int.MaxValue)]
+        public HttpResponseMessage MV(string id = null)
+        {
+            return Json(MusicApi.MV(id));
+        }
     }
 
 
