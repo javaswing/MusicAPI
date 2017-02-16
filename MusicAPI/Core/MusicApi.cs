@@ -67,6 +67,19 @@ namespace MusicAPI.Core
         }
 
         /// <summary>
+        /// 歌单（网友精选碟） hot||new http://music.163.com/#/discover/playlist/
+        /// </summary>
+        /// <param name="cat">返回全部</param>
+        /// <param name="limit">返回的条数</param>
+        /// <param name="offset">页面偏移量</param>
+        /// <param name="order">分类名称</param>
+        /// <returns></returns>
+        public static string TPlayList(string cat = "全部", int limit = 50, int offset = 0, string order = "hot")
+        {
+            return Request(new MusicApiConfig.TopPlayerLists { FormData = new { cat = cat, limit = limit, offset = offset, order = order } });
+        }
+
+        /// <summary>
         /// 请求网易云音乐接口
         /// </summary>
         /// <typeparam name="T">要请求的接口类型</typeparam>
@@ -88,20 +101,29 @@ namespace MusicAPI.Core
             }
 
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(requestURL);
+            req.Accept = "*/*";
+            req.Headers.Add("Accept-Language", "zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4");
+            // 如果服务端启用了GZIP，那么下面必须解压，否则一直乱码。
+            // 参见：http://www.crifan.com/set_accept_encoding_header_to_gzip_deflate_return_messy_code/
+            req.Headers.Add("Accept-Encoding", "gzip,deflate,sdch");
+            req.ContentType = "application/x-www-form-urlencoded";
+            req.KeepAlive = true;
+            req.Host = "music.163.com";
+            req.Referer = "http://music.163.com/search/";
+            req.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537";            
+            // 设置cookies
+            req.Headers["Cookie"] = "appver=1.5.2";
             req.Method = config.Method;
-            req.Referer = "http://music.163.com/";
-
+            req.AutomaticDecompression = DecompressionMethods.GZip;
             if (isPost)
             {
                 // 写入post请求包
                 byte[] formData = Encoding.UTF8.GetBytes(@params);
-                req.ContentType = "application/x-www-form-urlencoded";
-                req.ContentLength = formData.LongLength;
+                // 设置HTTP请求头  参考：https://github.com/darknessomi/musicbox/blob/master/NEMbox/api.py          
                 req.GetRequestStream().Write(formData, 0, formData.Length);
-            }
-
+            }            
             // 发送http请求 并读取响应内容返回
-            return new StreamReader(req.GetResponse().GetResponseStream()).ReadToEnd();
+            return new StreamReader(req.GetResponse().GetResponseStream(), Encoding.GetEncoding("UTF-8")).ReadToEnd();
         }
 
         /// <summary>

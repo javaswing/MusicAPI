@@ -10,6 +10,35 @@ namespace MusicAPI.Core
     /// </summary>
     public static class MusicApiConfig
     {
+
+        /// <summary>
+        /// 歌单（网友精选）
+        /// hot||new http://music.163.com/#/discover/playlist/
+        /// </summary>
+        public class TopPlayerLists: RequestData
+        {
+            public override string Url
+            {
+                get 
+                {
+                    return "http://music.163.com/api/playlist/list";
+                }
+            }
+
+            public override string Method
+            {
+                get
+                {
+                    return "GET";
+                }
+
+                set
+                {
+                    Method = value;
+                } 
+            }
+        }
+
         /// <summary>
         /// 搜索接口
         /// </summary>

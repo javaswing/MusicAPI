@@ -25,6 +25,16 @@ namespace MusicAPI.Controllers
             return Json(MusicApi.Search(s, limit, offset, type));
         }
 
+        // GET: http://music.163.com/api/playlist/list?cat={}&order={}&offset={}&total={}&limit={}
+        // Sample: api/music/topPlaylist?cat=全部&order=hot&offset=0&total=true&limit=3
+        [Route("topPlaylist")]
+        [HttpGet()]
+        [CacheOutput(ClientTimeSpan = int.MaxValue, ServerTimeSpan = int.MaxValue)]
+        public HttpResponseMessage TopPlaylist(string cat = "全部", int limit = 50, int offset = 0, string order = "hot")
+        {
+            return Json(MusicApi.TPlayList(cat, limit, offset,order));
+        }
+
         // GET: /api/music/detail?ids={0}
         // Sample: http://y.dskui.com/api/music/detail?ids=29775505,300587
 
@@ -67,7 +77,7 @@ namespace MusicAPI.Controllers
         public HttpResponseMessage MV(string id = null)
         {
             return Json(MusicApi.MV(id));
-        }
+        }       
     }
 
 
